@@ -24,7 +24,9 @@ In action:
 {{ basic }}
 
 <hr>
-Update a box:<br>
+If you have several different things to swap in, you can just put them all in the page source, then the 
+ic-get-from attributes pick the one you want.  Here, you can Update the text in a box from several different
+choices.  The final one uses the "X-IC-Remove" header that allows a response to indicate its target should be removed:<br>
 
 {% capture box %}
 <div ic-get-from="jq:#source .b1" ic-target="#box">Click Here</div>
@@ -42,10 +44,10 @@ This is the source text. It's not displayed.
 </div>
 {% endcapture %}
 
-{% highlight html %}{{ box }}{% endhighlight %}
-
-In action:
 {{ box }}
+
+Source:
+{% highlight html %}{{ box }}{% endhighlight %}
 
 <hr>
 Often two <span id="feedback" style="border: 1px solid black">different elements</span> will need to be updated, but it would be nice
