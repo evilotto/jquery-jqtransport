@@ -13,15 +13,62 @@ title: demo
 
 <h1>Sample jqtransport usage</h1>
 
-{% highlight html %}
+{% capture basic %}
 <div ic-get-from="jq:#answer">Question?</div>
 <div id="answer" style="display: none">The answer is yes!</div>
-{% endhighlight %}
+{% endcapture %}
+
+{% highlight html %}{{ basic }}{% endhighlight %}
+{{ basic }}
 
 In action:
 <div ic-get-from="jq:#answer">Question?</div>
 
 <div id="answer" style="display: none">The answer is yes!</div>
+
+<hr>
+Update a box:<br>
+<div ic-get-from="jq:#source .b1" ic-target="#box">Click Here</div>
+<div ic-get-from="jq:#source .b2" ic-target="#box">Or Here</div>
+<div ic-get-from="jq:#source .b3" ic-target="#box">Or Here</div>
+<div ic-get-from="jq:#source .b4" ic-target="#box">But not Here!</div>
+<div id="box" style="border: 1px solid black; width: 50em; height: 10ex;"></div>
+
+<div id="source" style="display: none">
+This is the source text. It's not displayed.
+<div class="b1">Text one</div>
+<div class="b2">Text two</div>
+<div class="b3">Text three</div>
+<div class="b4" data-jq-x-ic-remove="true">Removed!</div>
+</div>
+
+<hr>
+Often two <span id="feedback" style="border: 1px solid black">different elements</span> will need to be updated, but it would be nice
+to only use a single server request.  What you can do is to store the 
+server response in a undisplayed node - here it's "#storage" - then update the ui with local requests.
+<br>
+
+<div id="clickme"
+     ic-get-from="dx.html"
+     ic-target="#storage"
+     ic-on-complete="Intercooler.refresh('jq:')">Click me</div>
+
+<div id="storage" style="display: none"
+     ic-transition="none"></div>
+
+<div xxstyle="display: none"
+	id="updater"
+     ic-get-from="jq:#storage .result"
+     ic-target="#clickme"
+     xxic-deps="*">uu</div>
+
+<div ic-target="#feedback"
+     ic-get-from="jq:#storage .message"
+     ic-deps="*" ic-transition="none"
+     ic-on-complete="$('#feedback').delay(250).fadeIn('slow').delay(500).fadeOut('slow')"></div>
+
+
+
 
 </body>
 </html>
