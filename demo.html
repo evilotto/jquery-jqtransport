@@ -62,11 +62,11 @@ server response in a undisplayed node - here it's "#storage" - then update the u
 <div id="storage" style="display: none"
      ic-transition="none"></div>
 
-<div xxstyle="display: none"
-	id="updater"
+<div style="display: none"
+     id="updater"
      ic-get-from="jq:#storage .result"
      ic-target="#clickme"
-     xxic-deps="*">uu</div>
+     ic-deps="*"></div>
 
 <div ic-target="#feedback"
      ic-get-from="jq:#storage .message"
