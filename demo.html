@@ -19,15 +19,14 @@ title: demo
 {% endcapture %}
 
 {% highlight html %}{{ basic }}{% endhighlight %}
-{{ basic }}
 
 In action:
-<div ic-get-from="jq:#answer">Question?</div>
-
-<div id="answer" style="display: none">The answer is yes!</div>
+{{ basic }}
 
 <hr>
 Update a box:<br>
+
+{% capture box %}
 <div ic-get-from="jq:#source .b1" ic-target="#box">Click Here</div>
 <div ic-get-from="jq:#source .b2" ic-target="#box">Or Here</div>
 <div ic-get-from="jq:#source .b3" ic-target="#box">Or Here</div>
@@ -41,6 +40,12 @@ This is the source text. It's not displayed.
 <div class="b3">Text three</div>
 <div class="b4" data-jq-x-ic-remove="true">Removed!</div>
 </div>
+{% endcapture %}
+
+{% highlight html %}{{ box }}{% endhighlight %}
+
+In action:
+{{ box }}
 
 <hr>
 Often two <span id="feedback" style="border: 1px solid black">different elements</span> will need to be updated, but it would be nice
@@ -48,6 +53,7 @@ to only use a single server request.  What you can do is to store the
 server response in a undisplayed node - here it's "#storage" - then update the ui with local requests.
 <br>
 
+{% capture multiup %}
 <div id="clickme"
      ic-get-from="dx.html"
      ic-target="#storage"
@@ -66,6 +72,12 @@ server response in a undisplayed node - here it's "#storage" - then update the u
      ic-get-from="jq:#storage .message"
      ic-deps="*" ic-transition="none"
      ic-on-complete="$('#feedback').delay(250).fadeIn('slow').delay(500).fadeOut('slow')"></div>
+{% endcapture %}
+
+{% highlight html %}{{ manyup }}{% endhighlight %}
+
+In action:
+{{ manyup }}
 
 
 
